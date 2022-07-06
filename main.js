@@ -24,7 +24,7 @@ console.log(`Mi número aleatorio es ${randonNumber}`);
 
 
 
-const checkNumber = userNumber => parseInt(userNumber) === randonNumber ?textClue.innerHTML = "¡¡¡Has ganado, campeona!!! Refresca la página para comenzar un nuevo reto." : parseInt(userNumber) < randonNumber ?textClue.innerHTML = "Demasiado bajo.": textClue.innerHTML = "Demasiado alto.";
+const checkNumber = userNumber => parseInt(userNumber) === randonNumber ?textClue.innerHTML = "<span class='main__clue--bold'>¡¡¡Has ganado, campeona!!!</span> Refresca la página para comenzar un nuevo reto." : parseInt(userNumber) < randonNumber ?textClue.innerHTML = "Demasiado bajo.": textClue.innerHTML = "Demasiado alto.";
 
 const validateUserNumber = userNumber => userNumber < 1 || userNumber > 100 ? textClue.innerHTML = "El número debe estar entre 1 y 100": checkNumber(userNumber);
 

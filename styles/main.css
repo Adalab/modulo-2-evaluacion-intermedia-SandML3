@@ -38,6 +38,14 @@
     padding-left: 20px;
 }
 
+.main__form__userNumber:focus {
+    outline: 2px solid rgba(128, 128, 128, 0.705);
+}
+
+.main__form__userNumber ::placeholder {
+    font-size: 1.3rem;
+}
+
 .main__form__button {
     width: 6rem;
     height: 2.5rem;
@@ -52,7 +60,7 @@
 
 .main__clue {
     margin-bottom: 1rem;
-    font-size: 1.4rem;
+    font-size: 1.3rem;
     padding: 0.8rem;
     border: 5px solid rgb(224, 224, 224);
     width: 90%;
@@ -62,9 +70,15 @@
     text-transform: capitalize;
 }
 
+.main__clue--bold {
+    font-weight: 700;
+    color: rgb(34, 219, 210);
+}
+
 .main__triesNumber {
-    font-size: 1.4rem;
+    font-size: 1.3rem;
     padding: 0.8rem;
     border: 5px solid rgb(224, 224, 224);
     width: 90%;
 }
+

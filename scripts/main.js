@@ -22,24 +22,21 @@ const randonNumber = getRandomNumber(100);
 
 console.log(`Mi número aleatorio es ${randonNumber}`);
 
+const checkNumber = userNumber => parseInt(userNumber) === randonNumber ?textClue.innerHTML = '<span class="main__clue--bold">¡¡¡Has ganado, campeona!!!</span> Refresca la página para comenzar un nuevo reto.' : parseInt(userNumber) < randonNumber ?textClue.innerHTML = 'Demasiado bajo.': textClue.innerHTML = 'Demasiado alto.';
 
-
-const checkNumber = userNumber => parseInt(userNumber) === randonNumber ?textClue.innerHTML = "<span class='main__clue--bold'>¡¡¡Has ganado, campeona!!!</span> Refresca la página para comenzar un nuevo reto." : parseInt(userNumber) < randonNumber ?textClue.innerHTML = "Demasiado bajo.": textClue.innerHTML = "Demasiado alto.";
-
-const validateUserNumber = userNumber => userNumber < 1 || userNumber > 100 ? textClue.innerHTML = "El número debe estar entre 1 y 100": checkNumber(userNumber);
+const validateUserNumber = userNumber => userNumber < 1 || userNumber > 100 ? textClue.innerHTML = 'El número debe estar entre 1 y 100': checkNumber(userNumber);
 
 const triesCounter = (numberOfTries) => textTries.innerHTML = `Número de intentos: ${numberOfTries}`; 
 
-const initInputNumber = () => inputUserNumber.value = "";
+const initInputNumber = () => inputUserNumber.value = '';
 
 const handlerFunction = (event) => {
-    event.preventDefault();
-    const userNumber = inputUserNumber.value;
-    numberOfTries += 1;
-
-    triesCounter(numberOfTries);
-    validateUserNumber(userNumber);
-    initInputNumber();
-}
+  event.preventDefault();
+  const userNumber = inputUserNumber.value;
+  numberOfTries += 1;
+  triesCounter(numberOfTries);
+  validateUserNumber(userNumber);
+  initInputNumber();
+}; 
 
 buttonForm.addEventListener('click', handlerFunction);

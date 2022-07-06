@@ -4,6 +4,7 @@
 //--1.Guardamos en variables los elementos HTML que vamos a necesitar: input, botón, textos(pista y contador de intentos).
 //--2. Añadimos la función que genera números aleatorios y comprobamos que funciona correctamente. Guardamos su retorno en una constante para trabajar con el número aleatorio generado.
 //--3.Añadimos el evento click al botón y definimos las funciones que contendrá: 
+//------*.Validar si el dato introducido es correcto.
 //------a.Sumar intento al contador.
 //------b.Comprobar si el número introducido está dentro del rango permitido.
 //------c.Comprobar si el número es igual al random o no y mostrar pistas en función de ello.
@@ -22,11 +23,15 @@ const randonNumber = getRandomNumber(100);
 
 console.log(`Mi número aleatorio es ${randonNumber}`);
 
-const checkNumber = userNumber => parseInt(userNumber) === randonNumber ?textClue.innerHTML = '<span class="main__clue--bold">¡¡¡Has ganado, campeona!!!</span> Refresca la página para comenzar un nuevo reto.' : parseInt(userNumber) < randonNumber ?textClue.innerHTML = 'Demasiado bajo.': textClue.innerHTML = 'Demasiado alto.';
+const checkNumber = userNumber => parseInt(userNumber) === randonNumber ?includeHTML('<span class="main__clue--bold">¡¡¡Has ganado, campeona!!!</span> Refresca la página para comenzar un nuevo reto.', textClue) : parseInt(userNumber) < randonNumber ?includeHTML('Demasiado bajo.', textClue) :includeHTML('Demasiado alto.', textClue);
 
-const validateUserNumber = userNumber => userNumber < 1 || userNumber > 100 ? textClue.innerHTML = 'El número debe estar entre 1 y 100': checkNumber(userNumber);
+const validateUserNumber = userNumber => userNumber < 1 || userNumber > 100 ? includeHTML('El número debe estar entre 1 y 100', textClue): checkNumber(userNumber);
 
-const triesCounter = (numberOfTries) => textTries.innerHTML = `Número de intentos: ${numberOfTries}`; 
+const includeHTML = (string, element) => {
+    element.innerHTML = string;
+};
+
+const triesCounter = (numberOfTries) => includeHTML(`Número de intentos: ${numberOfTries}`, textTries); 
 
 const initInputNumber = () => inputUserNumber.value = '';
 

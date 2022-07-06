@@ -28,20 +28,21 @@ const checkNumber = userNumber => userNumber === randonNumber ?includeHTML('<spa
 const validateUserNumber = (userNumber) =>!userNumber?includeHTML('Debe introducir un número.',textClue) :userNumber < 1 || userNumber > 100 ? includeHTML('El número debe estar entre 1 y 100', textClue): checkNumber(userNumber);
 
 const includeHTML = (string, element) => {
-    element.innerHTML = string;
+  element.innerHTML = string;
 };
 
-const triesCounter = (numberOfTries) => includeHTML(`Número de intentos: ${numberOfTries}`, textTries); 
+const triesCounter = () => {
+  numberOfTries++;
+  includeHTML(`Número de intentos: ${numberOfTries}`, textTries); 
+}
 
 const initInputNumber = () => inputUserNumber.value = '';
 
 const handlerFunction = (event) => {
   event.preventDefault();
   const userNumber = parseInt(inputUserNumber.value);
-  numberOfTries += 1;
-  triesCounter(numberOfTries);
+  triesCounter();
   validateUserNumber(userNumber);
-
   initInputNumber();
 }; 
 

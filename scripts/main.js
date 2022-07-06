@@ -25,7 +25,7 @@ console.log(`Mi número aleatorio es ${randonNumber}`);
 
 const checkNumber = userNumber => userNumber === randonNumber ?includeHTML('<span class="main__clue--bold">¡¡¡Has ganado, campeona!!!</span> Refresca la página para comenzar un nuevo reto.', textClue) : userNumber < randonNumber ?includeHTML('Demasiado bajo.', textClue) :includeHTML('Demasiado alto.', textClue);
 
-const validateUserNumber = userNumber => userNumber < 1 || userNumber > 100 ? includeHTML('El número debe estar entre 1 y 100', textClue): checkNumber(userNumber);
+const validateUserNumber = (userNumber) =>!userNumber?includeHTML('Debe introducir un número.',textClue) :userNumber < 1 || userNumber > 100 ? includeHTML('El número debe estar entre 1 y 100', textClue): checkNumber(userNumber);
 
 const includeHTML = (string, element) => {
     element.innerHTML = string;
@@ -41,6 +41,7 @@ const handlerFunction = (event) => {
   numberOfTries += 1;
   triesCounter(numberOfTries);
   validateUserNumber(userNumber);
+
   initInputNumber();
 }; 
 

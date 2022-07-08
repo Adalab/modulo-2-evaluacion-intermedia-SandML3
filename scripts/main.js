@@ -93,7 +93,7 @@ const initTextClue = () => {
   if (textClue.classList.contains('error')) {
     textClue.classList.remove('error');
   };
-  includeHTML(`Pista: <span class="main__clue--capitalize">escribe</span> el número y dale a <span class="main__clue--capitalize">prueba</span>`, textClue);
+  includeHTML(`¡Empecemos de nuevo! <span class="explanation">Pista: <span class="main__clue--capitalize">escribe</span> el número y dale a <span class="main__clue--capitalize">prueba</span></span>`, textClue);
 };
 
 const resetHandlerFunction = (event) => {
@@ -101,6 +101,7 @@ const resetHandlerFunction = (event) => {
   initInput();
   initTries();
   initTextClue();
+  getRandomNumber(100);
 };
 
 resetButton.addEventListener('click', resetHandlerFunction);

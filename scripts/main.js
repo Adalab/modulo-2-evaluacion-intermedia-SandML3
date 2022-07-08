@@ -3,7 +3,7 @@
 //Pasos a seguir:
 //--1.Guardamos en variables los elementos HTML que vamos a necesitar: input, botón, textos(pista y contador de intentos).
 //--2. Añadimos la función que genera números aleatorios y comprobamos que funciona correctamente. Guardamos su retorno en una constante para trabajar con el número aleatorio generado.
-//--3.Añadimos el evento click al botón y definimos las funciones que contendrá: 
+//--3.Añadimos el evento click al botón y definimos las funciones que contendrá:
 //------*.Validar si el dato introducido es correcto.
 //------a.Sumar intento al contador.
 //------b.Comprobar si el número introducido está dentro del rango permitido.
@@ -18,7 +18,9 @@ const textClue = document.querySelector('.main__clue');
 const textTries = document.querySelector('.main__triesNumber');
 const form = document.querySelector('.main__form');
 const resetButton = document.querySelector('.main__form__button--reset');
+const gifWrapper = document.querySelector('.gif');
 let numberOfTries = 0;
+let keyword = '';
 
 const getRandomNumber = max => Math.ceil(Math.random() * max);
 const randonNumber = getRandomNumber(100);
@@ -29,11 +31,17 @@ const checkNumber = userNumber => {
   if (textClue.classList.contains('error')) {
     textClue.classList.remove('error');
   }
-  userNumber === randonNumber 
-  ?includeHTML('<span class="main__clue--bold">¡¡¡Has ganado, campeona!!!</span> Refresca la página para comenzar un nuevo reto.', textClue) 
-  : userNumber < randonNumber 
-  ?includeHTML('Demasiado bajo.', textClue) 
-  :includeHTML('Demasiado alto.', textClue);
+  if (userNumber === randonNumber) {
+    includeHTML('<span class="main__clue--bold">¡¡¡Has ganado, campeona!!!</span> Refresca la página para comenzar un nuevo reto.', textClue);
+    keyword = 'success';
+    gifWrapper.classList.remove('hidden');
+  } else {
+    keyword = 'fail';
+    gifWrapper.classList.remove('hidden');
+    userNumber < randonNumber
+    ?includeHTML('Demasiado bajo.', textClue)
+    :includeHTML('Demasiado alto.', textClue);
+  }
 }
 
 const validateUserNumber = (userNumber) => {
@@ -41,7 +49,7 @@ const validateUserNumber = (userNumber) => {
     includeHTML('Debe introducir un número.',textClue);
     textClue.classList.add('error');
   } else {
-    userNumber < 1 || userNumber > 100 
+    userNumber < 1 || userNumber > 100
     ? numberOutOfRange(userNumber)
     : checkNumber(userNumber);
   }
@@ -53,14 +61,14 @@ const includeHTML = (string, element) => {
 
 const numberOutOfRange = (userNumber) => {
   textClue.classList.add('error');
-  userNumber < 1 
+  userNumber < 1
     ?includeHTML('Has introducido un número menor de 1.<span class="explanation"> El número debe estar comprendido entre 1 y 100.</span>', textClue)
     :includeHTML('Has introducido un número mayor de 100.<span class="explanation"> El número debe estar comprendido entre 1 y 100.</span>', textClue);
 }
 
 const triesCounter = () => {
   numberOfTries++;
-  includeHTML(`Número de intentos: ${numberOfTries}`, textTries); 
+  includeHTML(`Número de intentos: ${numberOfTries}`, textTries);
 };
 
 const initInputNumber = () => inputUserNumber.value = '';
@@ -71,7 +79,7 @@ const handlerFunction = (event) => {
   triesCounter();
   validateUserNumber(userNumber);
   initInputNumber();
-}; 
+};
 
 const avoidRefreshing = (event) => {
   if (event.key === 'Enter') {
@@ -95,6 +103,7 @@ const initTextClue = () => {
   };
   includeHTML(`¡Empecemos de nuevo! <span class="explanation">Pista: <span class="main__clue--capitalize">escribe</span> el número y dale a <span class="main__clue--capitalize">prueba</span></span>`, textClue);
 };
+ const hideGif = () => gifWrapper.classList.add('hidden');
 
 const resetHandlerFunction = (event) => {
   event.preventDefault();
@@ -102,6 +111,49 @@ const resetHandlerFunction = (event) => {
   initTries();
   initTextClue();
   getRandomNumber(100);
+  hideGif();
 };
 
 resetButton.addEventListener('click', resetHandlerFunction);
+
+
+
+//--------------------------------------------------------------------------
+//Llamada API
+   function handlerApi (event) {
+  
+    const giphy = {
+      baseURL: "https://api.giphy.com/v1/gifs/",
+      apiKey: "0UTRbFtkMxAplrohufYco5IY74U8hOes",
+      tag: `${keyword}`,
+      type: "random",
+      rating: "pg-13"
+    };
+
+    let giphyURL = encodeURI(
+      giphy.baseURL +
+        giphy.type +
+        "?api_key=" +
+        giphy.apiKey +
+        "&tag=" +
+        giphy.tag +
+        "&rating=" +
+        giphy.rating
+    );
+
+    const newGif = () => 
+      fetch(giphyURL)
+        .then(response => response.json())
+        .then (json => renderGif(json.data));
+
+    var renderGif = gif => {
+      console.log(gif);
+      gifWrapper.style.background = `url('${ gif.images.original.url}')`
+      gifWrapper.style.backgroundSize = 'cover';
+      };
+
+    buttonForm.addEventListener('click', newGif);
+    };
+
+   
+document.addEventListener("DOMContentLoaded", handlerApi)

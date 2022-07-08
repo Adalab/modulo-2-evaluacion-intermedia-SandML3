@@ -108,3 +108,13 @@
     position: relative;
     left: calc(90% - 10rem);
 }
+
+.gif {
+    margin: 5rem auto;
+    width: 30rem;
+    height: 30rem;
+}
+
+.hidden {
+    display: none;
+}
